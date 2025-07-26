@@ -13,19 +13,39 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Account saveAccount(Account account) {
-        return accountRepository.save(account);
-    }
-
     public List<Account> getAccounts() {
         return accountRepository.findAll();
     }
 
-    public void deleteAccount(String id) {
-        accountRepository.deleteById(id);
+    public Account saveAccount(Account account) {
+        /* One to One Mapping
+        if (account.getPrimaryAddress() != null) {
+            account.getPrimaryAddress().setAccount(account); // 👈 back-reference set
+        }
+        */
+
+        if (!account.getAddresses().isEmpty()) {
+            account.getAddresses().forEach(address -> address.setAccount(account));
+        }
+
+        return accountRepository.save(account);
     }
 
     public Account updateAccount(Account account) {
+        /* One to One Mapping
+        if (account.getPrimaryAddress() != null) {
+            account.getPrimaryAddress().setAccount(account); // 👈 back-reference set
+        }
+        */
+
+        if (!account.getAddresses().isEmpty()) {
+            account.getAddresses().forEach(address -> address.setAccount(account));
+        }
+
         return accountRepository.save(account);
+    }
+
+    public void deleteAccount(String id) {
+        accountRepository.deleteById(id);
     }
 }

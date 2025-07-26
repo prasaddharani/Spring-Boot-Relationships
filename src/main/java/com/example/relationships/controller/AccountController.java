@@ -16,9 +16,6 @@ public class AccountController {
 
     @PostMapping
     public Account saveAccount(@RequestBody Account account) {
-        System.out.println("Account ID: " + account.getAccountIdentifier());
-        System.out.println("Address ID: " + account.getPrimaryAddress().getAddressId());
-
         return accountService.saveAccount(account);
     }
 
