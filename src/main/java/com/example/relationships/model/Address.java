@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,4 +31,7 @@ public class Address {
     @JoinColumn(name = "account_id")
     @JsonBackReference
     private Account account;
+
+//    @ManyToMany(mappedBy = "sharedAddresses")
+//    private List<Account> accounts = new ArrayList<>();
 }

@@ -30,4 +30,12 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Address> addresses = new ArrayList<>();
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "account_addresses",
+//            joinColumns = @JoinColumn(name = "account_id"),
+//            inverseJoinColumns = @JoinColumn(name = "address_id")
+//    )
+//    private List<Address> sharedAddresses;
 }
