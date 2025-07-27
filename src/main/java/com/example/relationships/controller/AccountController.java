@@ -3,6 +3,9 @@ package com.example.relationships.controller;
 import com.example.relationships.model.Account;
 import com.example.relationships.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,23 +18,27 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping
+    @CachePut("accounts")
     public Account saveAccount(@RequestBody Account account) {
         return accountService.saveAccount(account);
     }
 
     @GetMapping
-    private List<Account> getAccounts() {
+    @Cacheable("accounts")
+    public List<Account> getAccounts() {
         return accountService.getAccounts();
     }
 
     @DeleteMapping("/{id}")
-    private String deleteAccount(@PathVariable String id) {
+    @CacheEvict("accounts")
+    public String deleteAccount(@PathVariable String id) {
         accountService.deleteAccount(id);
         return "SUCCESS";
     }
 
     @PutMapping
-    private Account updateAccount(@RequestBody Account account) {
+    @CachePut("accounts")
+    public Account updateAccount(@RequestBody Account account) {
         return accountService.updateAccount(account);
     }
 }

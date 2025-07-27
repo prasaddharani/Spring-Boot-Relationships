@@ -14,6 +14,7 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     public List<Account> getAccounts() {
+        System.out.println("Fetching from db");
         return accountRepository.findAll();
     }
 
